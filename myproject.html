@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mona</title>
+    <link rel="stylesheet" href="styleproject.css">
+    <link rel="icon" type="image/jpg" href="favcat.png">
+</head>
+<body>
+    <h1>Miner Game</h1>
+    <hr>
+    <br>
+    <div style="display: flex;">
+    <button id="buttonshop" class="BUTTONMENU";>🛒</button>
+    <button id="buttonbank" class="BUTTONMENU">🏦</button>
+    </div>
+    <br>
+    <button id="buttonmine" class="BUTTON" onclick="mine()">⛏️</button>
+    <br>
+    <button id="buttonexchange" class="BUTTON">Exchange</button>
+    <script>
+        let coins = 0;
+
+        function mine() {
+            const randomCoins = Math.floor(Math.random() * 10) + 1; // Random coins between 1 and 5
+            coins += randomCoins;
+        }
+    </script>
+    <br>
+    <br>
+    <p id="coins">Coins: <span id="coinCount">0</span></p>
+    <script>
+        document.getElementById("coinCount").innerText = coins;
+        document.getElementById("buttonmine").addEventListener("click", function() {
+            const coinCount = document.getElementById("coinCount");
+            coinCount.innerText = coins;
+        });
+    </script>
+    <br>
+</body>
+</html>
