@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <title>ASMR Beauty Spa</title>
 
@@ -11,25 +11,28 @@
 
 <body>
 
-
 <div class="game">
 
 
+<header>
 <h1>💗 ASMR Beauty Spa</h1>
 
-
-<div class="top">
-
+<div class="stats">
 🪙 <span id="coins">0</span>
+⭐ Lv <span id="level">1</span>
+</div>
+</header>
 
-⭐ Livello:
-<span id="level">1</span>
 
+
+<div id="customerName">
+Cliente: Sofia 💕
 </div>
 
 
 
-<div class="customer">
+<div class="character">
+
 
 <div id="hair"></div>
 
@@ -41,59 +44,72 @@
 <div class="eye right"></div>
 
 
-<div class="mouth"></div>
+<div class="cheek leftCheek"></div>
+<div class="cheek rightCheek"></div>
+
+
+<div id="makeup"></div>
 
 
 <div id="foam"></div>
 
 
-<div class="spot a"></div>
-<div class="spot b"></div>
-<div class="spot c"></div>
+<div class="spot s1"></div>
+<div class="spot s2"></div>
+<div class="spot s3"></div>
+
+
+<div class="mouth"></div>
 
 
 </div>
 
 
-<div id="body"></div>
+
+<div id="dress"></div>
 
 
 </div>
+
 
 
 
 <div class="progress">
 
-<div id="bar"></div>
+<div id="progressBar"></div>
 
 </div>
 
 
 
 <h2 id="mission">
-🫧 Trascina il detergente sul viso
+🫧 Passa il detergente sul viso
 </h2>
 
 
 
 <div id="tool">
-
 🫧
-
 </div>
+
 
 
 
 <div class="buttons">
 
 
-<button onclick="changeTool('clean')">
-🫧 Pulizia
+<button onclick="setTool('clean')">
+🫧 Detergente
 </button>
 
 
-<button onclick="changeTool('makeup')">
-💄 Trucco
+<button onclick="setTool('makeup')">
+💄 Pennello trucco
+</button>
+
+
+<button onclick="nextCustomer()">
+👧 Nuova cliente
 </button>
 
 
@@ -106,39 +122,39 @@
 
 
 
-<div id="wardrobe" class="hidden">
+
+<div id="wardrobe" class="panel hidden">
 
 
 <h3>Vestiti</h3>
 
-
-<button onclick="dress('pink')">
+<button onclick="changeDress('pink')">
 🌸 Rosa
 </button>
 
 
-<button onclick="buyDress('blue')">
-👑 Principessa 200🪙
+<button onclick="changeDress('blue')">
+💙 Blu
 </button>
 
 
-<button onclick="buyDress('gold')">
-💎 Diamante 500🪙
+<button onclick="changeDress('gold')">
+✨ Oro
 </button>
 
 
 
 <h3>Capelli</h3>
 
-
-<button onclick="hair('pink')">
+<button onclick="changeHair('pink')">
 💗 Rosa
 </button>
 
 
-<button onclick="hair('brown')">
+<button onclick="changeHair('brown')">
 🤎 Castani
 </button>
+
 
 
 </div>
@@ -147,18 +163,14 @@
 
 
 <div id="message">
-
-Inizia il trattamento!
-
+Benvenuta nella Spa!
 </div>
-
 
 
 </div>
 
 
 <script src="game.js"></script>
-
 
 </body>
 </html>
