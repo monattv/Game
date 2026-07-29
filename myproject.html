@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ASMR Beauty Spa</title>
+<title>ASMR Beauty Cartoon Spa</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
@@ -11,42 +11,76 @@
 
 <div class="game">
 
-<h1>💗 ASMR Beauty Spa 💗</h1>
+<h1>💗 ASMR Cartoon Beauty Spa 💗</h1>
 
 <div class="stats">
-🪙 Monete: <span id="coins">0</span>
-<br>
-⭐ Livello: <span id="level">1</span>
+🪙 <span id="coins">0</span>
+⭐ Livello <span id="level">1</span>
 </div>
 
 
-<div class="client">
-<img src="https://i.imgur.com/8Km9tLL.png" id="girl">
+<h2 id="mission">
+Pulisci il viso con il dito 🫧
+</h2>
+
+
+<div id="face">
+
+<div class="hair"></div>
+
+<div class="eye left"></div>
+<div class="eye right"></div>
+
+<div class="mouth"></div>
+
+
+<div class="spot s1"></div>
+<div class="spot s2"></div>
+<div class="spot s3"></div>
+
 </div>
-
-
-<h2 id="task">Pulisci il viso della cliente ✨</h2>
 
 
 <div class="tools">
 
-<button onclick="clean()">🫧 Pulizia</button>
+<button id="cleanBtn">
+🫧 Detergente
+</button>
 
-<button onclick="pimple()">✨ Cura pelle</button>
+<button onclick="openCloset()">
+👗 Armadio
+</button>
 
-<button onclick="makeup()">💄 Trucco</button>
+</div>
 
-<button onclick="dress()">👗 Vestiti</button>
+
+
+<div id="closet" class="hidden">
+
+<h2>Armadio</h2>
+
+<button onclick="buyDress(0)">
+👚 Vestito rosa GRATIS
+</button>
+
+<button onclick="buyDress(1)">
+👑 Vestito principessa 🔒 200🪙
+</button>
+
+<button onclick="buyDress(2)">
+💎 Vestito diamante 🔒 500🪙
+</button>
 
 </div>
 
 
-<div class="message" id="message">
-Inizia il trattamento!
+<div id="message">
+Inizia la spa!
 </div>
 
 
 </div>
+
 
 <script src="game.js"></script>
 
