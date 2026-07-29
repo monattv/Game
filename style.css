@@ -1,0 +1,302 @@
+/* RESET BASE */
+
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+    margin:0;
+    padding:0;
+    width:100%;
+    min-height:100%;
+    overflow-x:hidden;
+    touch-action:manipulation;
+    -webkit-text-size-adjust:100%;
+    user-select:none;
+    -webkit-user-select:none;
+}
+
+
+/* SFONDO */
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:
+    radial-gradient(circle at top,#3b3b66,#1e1e2f 60%);
+    color:white;
+    text-align:center;
+}
+
+
+/* TITOLO */
+
+h1{
+    margin-top:25px;
+    font-size:38px;
+    text-shadow:0 0 15px rgba(255,255,255,.3);
+}
+
+
+/* MONETE */
+
+#coin{
+    margin:30px auto;
+    font-size:45px;
+    font-weight:bold;
+    color:#ffd700;
+    text-shadow:
+    0 0 10px #ffcc00,
+    0 0 20px #ff9900;
+
+    transition:.15s;
+}
+
+
+/* PULSANTI */
+
+button{
+
+    border:none;
+    outline:none;
+
+    cursor:pointer;
+
+    padding:18px 30px;
+    margin:10px;
+
+    border-radius:15px;
+
+    font-size:20px;
+    font-weight:bold;
+
+    touch-action:manipulation;
+
+    user-select:none;
+    -webkit-user-select:none;
+    -webkit-touch-callout:none;
+
+    transition:
+    transform .1s,
+    filter .2s,
+    box-shadow .2s;
+
+}
+
+
+button:active{
+
+    transform:scale(.92);
+
+}
+
+
+/* PULSANTE GUADAGNA */
+
+#click{
+
+    width:280px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #ffe259,
+        #ffa751
+    );
+
+    color:#222;
+
+    font-size:28px;
+
+    box-shadow:
+    0 8px 20px rgba(255,180,0,.4);
+
+}
+
+
+#click:hover{
+
+    filter:brightness(1.1);
+
+}
+
+
+/* STATISTICHE */
+
+.stats{
+
+    margin:25px auto;
+
+    background:#292940;
+
+    width:320px;
+
+    padding:20px;
+
+    border-radius:20px;
+
+    font-size:22px;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,.3);
+
+}
+
+
+.stats div{
+
+    margin:10px;
+
+}
+
+
+/* NEGOZIO */
+
+.shop{
+
+    background:
+
+    linear-gradient(
+        145deg,
+        #35355a,
+        #24243b
+    );
+
+    width:min(380px,90%);
+
+    margin:30px auto;
+
+    padding:25px;
+
+    border-radius:25px;
+
+    box-shadow:
+
+    0 15px 40px rgba(0,0,0,.4);
+
+}
+
+
+.shop h2{
+
+    margin-top:0;
+
+}
+
+
+/* UPGRADE */
+
+.upgrade{
+
+    width:95%;
+
+    background:
+
+    linear-gradient(
+        135deg,
+        #56ab2f,
+        #a8e063
+    );
+
+    color:white;
+
+    box-shadow:
+
+    0 8px 15px rgba(0,255,100,.25);
+
+}
+
+
+.upgrade:hover{
+
+    filter:brightness(1.1);
+
+}
+
+
+/* COSTI */
+
+#clickCost,
+#autoCost{
+
+    color:#ffe600;
+
+}
+
+
+/* ANIMAZIONE MONETE */
+
+@keyframes pop{
+
+0%{
+    transform:scale(1);
+}
+
+50%{
+    transform:scale(1.15);
+}
+
+100%{
+    transform:scale(1);
+}
+
+}
+
+
+.coin-animation{
+
+    animation:pop .15s;
+
+}
+
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+h1{
+
+    font-size:30px;
+
+}
+
+
+#coin{
+
+    font-size:38px;
+
+}
+
+
+#click{
+
+    width:90%;
+
+}
+
+
+.stats{
+
+    width:90%;
+
+}
+
+
+button{
+
+    font-size:18px;
+
+}
+
+
+}
+
+
+/* IPHONE SAFE AREA */
+
+body{
+
+    padding-bottom:
+    env(safe-area-inset-bottom);
+
+}
