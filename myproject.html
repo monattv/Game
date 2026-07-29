@@ -1,430 +1,54 @@
 <!DOCTYPE html>
 <html lang="it">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-
-<title>Incremental</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ASMR Beauty Spa</title>
 <link rel="stylesheet" href="style.css">
-
 </head>
-
 
 <body>
 
+<div class="game">
 
-<header>
+<h1>💗 ASMR Beauty Spa 💗</h1>
 
-<h1>💎 Incremental</h1>
-
-<p class="subtitle">
-Costruisci la tua economia
-</p>
-
-</header>
-
-
-
-<main>
-
-
-<section class="card money-card">
-
-<div id="coin">
-0
-</div>
-
-<div class="label">
-Monete
-</div>
-
-
-<button id="click">
-
-+ Guadagna
-
-</button>
-
-
-</section>
-
-
-
-
-
-<section class="stats card">
-
-
-<div class="stat">
-
-<span>🖱️ Click</span>
-
-<b id="perClick">
-1
-</b>
-
-</div>
-
-
-
-<div class="stat">
-
-<span>⚡ Secondo</span>
-
-<b id="perSecond">
-0
-</b>
-
-</div>
-
-
-
-</section>
-
-
-
-
-
-
-<nav class="menu">
-
-
-<button class="tab active">
-
-🏪 Negozio
-
-</button>
-
-
-<button class="tab">
-
-📊 Statistiche
-
-</button>
-
-
-<button class="tab">
-
-⚙️ Opzioni
-
-</button>
-
-
-</nav>
-
-
-
-
-
-
-<section class="card shop">
-
-
-<h2>
-Negozio
-</h2>
-
-
-
-<button class="upgrade" onclick="buyClick()">
-
-🚀 Potenzia Click
-
+<div class="stats">
+🪙 Monete: <span id="coins">0</span>
 <br>
+⭐ Livello: <span id="level">1</span>
+</div>
 
-Costo:
-<span id="clickCost">
-10
-</span>
 
-</button>
+<div class="client">
+<img src="https://i.imgur.com/8Km9tLL.png" id="girl">
+</div>
 
 
+<h2 id="task">Pulisci il viso della cliente ✨</h2>
 
 
+<div class="tools">
 
-<button class="upgrade" onclick="buyAuto()">
+<button onclick="clean()">🫧 Pulizia</button>
 
-⛏️ Minatore Automatico
+<button onclick="pimple()">✨ Cura pelle</button>
 
-<br>
+<button onclick="makeup()">💄 Trucco</button>
 
-Costo:
-<span id="autoCost">
-25
-</span>
+<button onclick="dress()">👗 Vestiti</button>
 
+</div>
 
-</button>
 
+<div class="message" id="message">
+Inizia il trattamento!
+</div>
 
-</section>
 
+</div>
 
-
-</main>
-
-
-
-<script>
-
-
-let money = 0;
-
-let clickPower = 1;
-
-let autoPower = 0;
-
-let clickCost = 10;
-
-let autoCost = 25;
-
-
-
-const coin = document.getElementById("coin");
-
-const clickButton = document.getElementById("click");
-
-
-
-
-
-function update(){
-
-
-coin.innerHTML = Math.floor(money);
-
-
-
-document.getElementById("perClick").innerHTML = clickPower;
-
-
-document.getElementById("perSecond").innerHTML = autoPower;
-
-
-document.getElementById("clickCost").innerHTML = Math.floor(clickCost);
-
-
-document.getElementById("autoCost").innerHTML = Math.floor(autoCost);
-
-
-
-coin.classList.remove("pop");
-
-
-void coin.offsetWidth;
-
-
-coin.classList.add("pop");
-
-
-}
-
-
-
-
-
-
-
-clickButton.addEventListener("pointerdown",()=>{
-
-
-money += clickPower;
-
-
-update();
-
-
-});
-
-
-
-
-
-
-
-function buyClick(){
-
-
-if(money >= clickCost){
-
-
-money -= clickCost;
-
-
-clickPower++;
-
-
-clickCost = Math.floor(clickCost * 1.5);
-
-
-update();
-
-
-}
-
-
-}
-
-
-
-
-
-
-function buyAuto(){
-
-
-if(money >= autoCost){
-
-
-money -= autoCost;
-
-
-autoPower++;
-
-
-autoCost = Math.floor(autoCost * 1.8);
-
-
-update();
-
-
-}
-
-
-}
-
-
-
-
-
-
-
-
-setInterval(()=>{
-
-
-money += autoPower;
-
-
-update();
-
-
-},1000);
-
-
-
-
-
-
-
-
-function save(){
-
-
-localStorage.setItem(
-
-"incremental",
-
-JSON.stringify({
-
-money,
-clickPower,
-autoPower,
-clickCost,
-autoCost,
-date:Date.now()
-
-})
-
-);
-
-
-}
-
-
-
-
-
-
-function load(){
-
-
-let data = localStorage.getItem("incremental");
-
-
-
-if(!data)
-return;
-
-
-
-let save = JSON.parse(data);
-
-
-
-money = save.money || 0;
-
-clickPower = save.clickPower || 1;
-
-autoPower = save.autoPower || 0;
-
-clickCost = save.clickCost || 10;
-
-autoCost = save.autoCost || 25;
-
-
-
-if(save.date){
-
-
-let offline =
-
-((Date.now()-save.date)/1000)*autoPower;
-
-
-
-money += offline;
-
-
-}
-
-
-
-
-
-update();
-
-
-}
-
-
-
-
-
-
-setInterval(save,5000);
-
-
-
-window.addEventListener("beforeunload",save);
-
-
-
-load();
-
-
-update();
-
-
-
-</script>
-
+<script src="game.js"></script>
 
 </body>
-
 </html>
