@@ -1,432 +1,67 @@
-*{
+body {
+    margin:0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(#ffd6ec,#ffeef8);
+    text-align:center;
+}
 
-box-sizing:border-box;
 
--webkit-tap-highlight-color:transparent;
+.game {
+    max-width:400px;
+    margin:auto;
+    padding:20px;
+}
+
+
+h1 {
+    color:#ff4fa3;
+}
+
+
+.stats {
+    background:white;
+    padding:15px;
+    border-radius:20px;
+    font-size:20px;
+}
+
+
+.client img {
+    width:220px;
+    margin:20px;
+    border-radius:50%;
+}
+
+
+.tools button {
+
+    width:90%;
+    padding:15px;
+    margin:8px;
+
+    border:none;
+    border-radius:30px;
+
+    background:#ff80bf;
+    color:white;
+
+    font-size:18px;
 
 }
 
 
-body{
-
-
-margin:0;
-
-min-height:100vh;
-
-
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial;
-
-
-background:
-
-linear-gradient(
-145deg,
-#eef2f7,
-#cfd8e6
-);
-
-
-color:#222;
-
-
-text-align:center;
-
-
-touch-action:manipulation;
-
-
+.tools button:active {
+    transform:scale(0.95);
 }
 
 
+.message {
 
-header{
+    margin-top:20px;
+    background:white;
+    padding:15px;
+    border-radius:20px;
 
-
-padding:30px 20px 10px;
-
-
-}
-
-
-h1{
-
-
-font-size:38px;
-
-margin:0;
-
-
-}
-
-
-
-.subtitle{
-
-
-color:#666;
-
-font-size:16px;
-
-
-}
-
-
-
-
-main{
-
-
-max-width:450px;
-
-margin:auto;
-
-padding:20px;
-
-
-}
-
-
-
-.card{
-
-
-background:
-
-rgba(255,255,255,.55);
-
-
-backdrop-filter:blur(20px);
-
-
--webkit-backdrop-filter:blur(20px);
-
-
-border-radius:28px;
-
-
-padding:25px;
-
-
-margin:20px 0;
-
-
-box-shadow:
-
-0 15px 40px rgba(0,0,0,.12);
-
-
-}
-
-
-
-
-
-#coin{
-
-
-font-size:65px;
-
-
-font-weight:700;
-
-
-color:#222;
-
-
-}
-
-
-
-
-
-.label{
-
-
-color:#777;
-
-font-size:20px;
-
-
-}
-
-
-
-
-#click{
-
-
-margin-top:25px;
-
-
-width:90%;
-
-
-padding:22px;
-
-
-border:0;
-
-
-border-radius:25px;
-
-
-font-size:26px;
-
-
-font-weight:bold;
-
-
-background:
-
-
-linear-gradient(
-135deg,
-#111,
-#555
-);
-
-
-
-color:white;
-
-
-
-box-shadow:
-
-0 10px 25px rgba(0,0,0,.25);
-
-
-
-transition:.15s;
-
-
-}
-
-
-
-#click:active{
-
-
-transform:scale(.92);
-
-
-}
-
-
-
-
-
-.pop{
-
-
-animation:pop .2s;
-
-
-}
-
-
-
-@keyframes pop{
-
-
-50%{
-
-transform:scale(1.15);
-
-}
-
-
-}
-
-
-
-
-
-
-.stats{
-
-
-display:flex;
-
-justify-content:space-around;
-
-
-}
-
-
-
-
-
-.stat{
-
-
-display:flex;
-
-flex-direction:column;
-
-
-font-size:18px;
-
-
-}
-
-
-
-
-.stat b{
-
-
-font-size:28px;
-
-
-margin-top:5px;
-
-
-}
-
-
-
-
-
-.menu{
-
-
-display:flex;
-
-
-gap:10px;
-
-
-}
-
-
-
-.tab{
-
-
-flex:1;
-
-
-border:0;
-
-
-padding:15px;
-
-
-border-radius:18px;
-
-
-background:white;
-
-
-font-size:14px;
-
-
-}
-
-
-
-
-.active{
-
-
-background:#111;
-
-color:white;
-
-
-}
-
-
-
-
-
-
-.shop h2{
-
-
-margin-top:0;
-
-
-}
-
-
-
-.upgrade{
-
-
-width:100%;
-
-
-margin:10px 0;
-
-
-padding:20px;
-
-
-border:0;
-
-
-border-radius:20px;
-
-
-background:
-
-linear-gradient(
-135deg,
-#667eea,
-#764ba2
-);
-
-
-color:white;
-
-
-font-size:18px;
-
-
-font-weight:bold;
-
-
-transition:.15s;
-
-
-}
-
-
-
-.upgrade:active{
-
-
-transform:scale(.95);
-
-
-}
-
-
-
-
-
-@media(max-width:500px){
-
-
-h1{
-
-font-size:32px;
-
-}
-
-
-
-#coin{
-
-
-font-size:50px;
-
-
-}
-
-
+    color:#ff4fa3;
 
 }
