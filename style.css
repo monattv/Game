@@ -1,67 +1,178 @@
-body {
-    margin:0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(#ffd6ec,#ffeef8);
-    text-align:center;
-}
+body{
 
-
-.game {
-    max-width:400px;
-    margin:auto;
-    padding:20px;
-}
-
-
-h1 {
-    color:#ff4fa3;
-}
-
-
-.stats {
-    background:white;
-    padding:15px;
-    border-radius:20px;
-    font-size:20px;
-}
-
-
-.client img {
-    width:220px;
-    margin:20px;
-    border-radius:50%;
-}
-
-
-.tools button {
-
-    width:90%;
-    padding:15px;
-    margin:8px;
-
-    border:none;
-    border-radius:30px;
-
-    background:#ff80bf;
-    color:white;
-
-    font-size:18px;
+margin:0;
+background:#ffe1f0;
+font-family:Arial;
+text-align:center;
 
 }
 
 
-.tools button:active {
-    transform:scale(0.95);
+.game{
+
+max-width:420px;
+margin:auto;
+padding:20px;
+
 }
 
 
-.message {
+h1{
 
-    margin-top:20px;
-    background:white;
-    padding:15px;
-    border-radius:20px;
+color:#ff4d9d;
 
-    color:#ff4fa3;
+}
+
+
+.stats{
+
+background:white;
+border-radius:20px;
+padding:15px;
+font-size:20px;
+
+}
+
+
+
+#face{
+
+position:relative;
+margin:30px auto;
+width:230px;
+height:250px;
+background:#ffd1b8;
+border-radius:50%;
+
+overflow:hidden;
+
+}
+
+
+/* capelli */
+
+.hair{
+
+position:absolute;
+width:250px;
+height:100px;
+background:#5b3218;
+top:0;
+left:-10px;
+border-radius:50%;
+
+}
+
+
+
+.eye{
+
+position:absolute;
+width:25px;
+height:35px;
+background:#222;
+border-radius:50%;
+top:110px;
+
+}
+
+
+.left{
+
+left:60px;
+
+}
+
+
+.right{
+
+right:60px;
+
+}
+
+
+
+.mouth{
+
+position:absolute;
+width:60px;
+height:25px;
+border-bottom:5px solid pink;
+border-radius:50%;
+bottom:60px;
+left:85px;
+
+}
+
+
+
+.spot{
+
+position:absolute;
+width:18px;
+height:18px;
+background:#e56b75;
+border-radius:50%;
+
+}
+
+
+.s1{
+
+top:150px;
+left:70px;
+
+}
+
+
+.s2{
+
+top:130px;
+right:80px;
+
+}
+
+
+.s3{
+
+top:170px;
+right:60px;
+
+}
+
+
+
+.tools button,
+#closet button{
+
+width:90%;
+margin:8px;
+padding:15px;
+
+border:none;
+border-radius:30px;
+
+background:#ff79bb;
+color:white;
+
+font-size:17px;
+
+}
+
+
+
+.hidden{
+
+display:none;
+
+}
+
+
+#message{
+
+background:white;
+padding:15px;
+border-radius:20px;
+margin-top:20px;
 
 }
