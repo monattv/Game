@@ -1,30 +1,36 @@
 let coins=0;
 let level=1;
 
-let cleaning=0;
-
 let tool="clean";
 
-let dragging=false;
+let down=false;
 
+let progress=0;
 
+let customers=[
 
-let saved=
-localStorage.getItem("beautySave");
+{
+name:"Sofia",
+hair:"#ff8bc8",
+skin:"#ffd0b0"
+},
 
+{
+name:"Emma",
+hair:"#704020",
+skin:"#e8aa85"
+},
 
-if(saved){
-
-let data=JSON.parse(saved);
-
-coins=data.coins;
-level=data.level;
-
+{
+name:"Luna",
+hair:"#6d8cff",
+skin:"#ffd5bf"
 }
 
+];
 
 
-update();
+let current=0;
 
 
 
@@ -32,7 +38,7 @@ function save(){
 
 localStorage.setItem(
 
-"beautySave",
+"spa",
 
 JSON.stringify({
 
@@ -47,7 +53,28 @@ level
 
 
 
+function load(){
+
+let s=localStorage.getItem("spa");
+
+if(s){
+
+let d=JSON.parse(s);
+
+coins=d.coins;
+level=d.level;
+
+}
+
+update();
+
+}
+
+
+
 function update(){
+
+coins=Math.floor(coins);
 
 document.getElementById("coins").innerHTML=coins;
 
@@ -57,88 +84,76 @@ document.getElementById("level").innerHTML=level;
 
 
 
-function changeTool(t){
+
+function setTool(t){
 
 tool=t;
 
-if(t=="clean"){
+document.getElementById("tool").innerHTML=
+t=="clean"?"🫧":"🖌️";
 
-document.getElementById("tool").innerHTML="🫧";
 
 document.getElementById("mission").innerHTML=
-"Trascina il detergente sul viso";
-
-}
-
-else{
-
-document.getElementById("tool").innerHTML="🖌️";
-
-document.getElementById("mission").innerHTML=
-"Trucca la ragazza";
-
-}
+t=="clean"
+?
+"Trascina il detergente sul viso"
+:
+"Trascina il pennello per truccare";
 
 
 }
+
+
 
 
 
 document.addEventListener(
 "pointerdown",
-
 e=>{
 
-dragging=true;
+down=true;
 
-}
-
-);
+});
 
 
 
 document.addEventListener(
 "pointerup",
-
 ()=>{
 
-dragging=false;
+down=false;
 
 document.getElementById("tool").style.display="none";
 
-}
+});
 
-);
 
 
 
 
 document.addEventListener(
 "pointermove",
-
 e=>{
 
 
-if(!dragging)return;
+if(!down)return;
 
 
 
-let t=document.getElementById("tool");
+let toolBox=document.getElementById("tool");
 
 
-t.style.display="block";
-
-t.style.left=e.pageX+"px";
-
-t.style.top=e.pageY+"px";
+toolBox.style.display="block";
 
 
+toolBox.style.left=e.clientX-25+"px";
 
-if(tool=="clean"){
+toolBox.style.top=e.clientY-25+"px";
 
 
-let face=
-document.getElementById("face")
+
+let face=document
+.getElementById("face")
 .getBoundingClientRect();
 
 
@@ -153,103 +168,145 @@ e.clientY<face.bottom
 ){
 
 
-cleaning++;
 
-document.getElementById("bar")
-.style.width=
-cleaning+"%";
+if(tool=="clean"){
 
+progress+=1;
 
-document.getElementById("foam")
-.style.opacity=
-cleaning/150;
+document.getElementById("foam").style.opacity=
+progress/150;
 
 
-
-removeSpots();
+document.getElementById("progressBar").style.width=
+progress+"%";
 
 
 
-if(cleaning>=100){
+createFoam(e.clientX,e.clientY);
+
+
+
+}
+
+
+if(tool=="makeup"){
+
+
+document.getElementById("makeup").style.background=
+"radial-gradient(circle,#ff8abf,#ffb5d8)";
+
+
+document.getElementById("makeup").style.opacity=
+0.4;
+
+
+}
+
+
+
+if(progress>=100){
 
 finish();
 
 }
 
 
-
-}
-
-
-
-}
-
-
-
-});
-
-
-
-
-
-
-function removeSpots(){
-
-document.querySelectorAll(".spot")
-.forEach(s=>{
-
-
-if(Math.random()>0.7){
-
-s.style.display="none";
-
-coins+=2;
-
-update();
-
-save();
-
 }
 
 
 });
 
+
+
+
+
+function createFoam(x,y){
+
+let bubble=document.createElement("span");
+
+bubble.innerHTML="🫧";
+
+bubble.style.position="absolute";
+
+bubble.style.left=x+"px";
+
+bubble.style.top=y+"px";
+
+bubble.style.fontSize="25px";
+
+
+document.body.appendChild(bubble);
+
+
+setTimeout(()=>{
+
+bubble.remove();
+
+},700);
+
+
 }
+
 
 
 
 
 function finish(){
 
-
-document.getElementById("message")
-.innerHTML=
-"✨ Cliente felice! +50 monete";
+document.getElementById("message").innerHTML=
+"✨ Cliente bellissima! +100🪙";
 
 
-coins+=50;
-
+coins+=100;
 
 level++;
 
+progress=0;
 
-update();
+
+document.getElementById("progressBar").style.width="0%";
+
 
 save();
 
-
-document.querySelector(".mouth")
-.style.borderBottom=
-"5px solid pink";
-
-
-document.getElementById("mission")
-.innerHTML=
-"🎉 Nuovo livello!";
+update();
 
 
 }
 
+
+
+
+
+function nextCustomer(){
+
+current++;
+
+if(current>=customers.length)
+current=0;
+
+
+let c=customers[current];
+
+
+document.getElementById("customerName").innerHTML=
+"Cliente: "+c.name+" 💕";
+
+
+document.getElementById("hair").style.background=c.hair;
+
+
+document.getElementById("face").style.background=c.skin;
+
+
+progress=0;
+
+
+document.querySelectorAll(".spot")
+.forEach(x=>x.style.display="block");
+
+
+}
 
 
 
@@ -264,79 +321,40 @@ document
 
 
 
+function changeDress(c){
 
-function dress(color){
-
-document.getElementById("body")
-.style.background=
-color=="pink"
-?
-"#ff80bf"
-:
-"#70cfff";
-
-}
+let d=document.getElementById("dress");
 
 
+if(c=="pink")
+d.style.background="#ff80c0";
 
 
-
-function buyDress(type){
-
-let price=
-type=="blue"
-?
-200
-:
-500;
+if(c=="blue")
+d.style.background="#70cfff";
 
 
-if(coins>=price){
-
-coins-=price;
-
-update();
-
-save();
-
-
-document.getElementById("body")
-.style.background=
-type=="blue"
-?
-"#70cfff"
-:
-"#ffd84d";
-
-}
-
-else{
-
-
-document.getElementById("message")
-.innerHTML=
-"Ti servono più monete 🪙";
-
-
-}
+if(c=="gold")
+d.style.background="#ffd84d";
 
 
 }
 
 
 
-
-
-function hair(color){
-
+function changeHair(c){
 
 document.getElementById("hair")
 .style.background=
-color=="pink"
+c=="pink"
 ?
-"#ff8bc7"
+"#ff8bc8"
 :
 "#704020";
 
 
 }
+
+
+
+load();
