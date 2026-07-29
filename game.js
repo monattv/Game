@@ -1,72 +1,54 @@
 let coins=0;
 let level=1;
 
-let cleaned=0;
-
-let clothes=[
-{
-name:"Rosa",
-price:0,
-buy:true
-},
-
-{
-name:"Principessa",
-price:200,
-buy:false
-},
-
-{
-name:"Diamante",
-price:500,
-buy:false
-}
-
-];
+let tool="clean";
 
 
-
-// CARICA SALVATAGGIO
-
-function load(){
-
-let save=
-localStorage.getItem("beautySave");
-
-
-if(save){
-
-let data=JSON.parse(save);
-
-coins=data.coins;
-level=data.level;
-clothes=data.clothes;
-
-}
-
-update();
-
-}
+let bought={
+pink:true,
+princess:false,
+diamond:false
+};
 
 
 
 function save(){
 
 localStorage.setItem(
-"beautySave",
-
+"spaSave",
 JSON.stringify({
 
 coins,
 level,
-clothes
+bought
 
 })
-
 );
 
 }
 
+
+
+function load(){
+
+let data=
+localStorage.getItem("spaSave");
+
+
+if(data){
+
+let save=JSON.parse(data);
+
+coins=save.coins;
+level=save.level;
+bought=save.bought;
+
+}
+
+
+update();
+
+}
 
 
 function update(){
@@ -79,9 +61,10 @@ document.getElementById("level").innerHTML=level;
 
 
 
-function reward(text){
+function addCoins(){
 
 coins+=10;
+
 
 if(coins%100==0){
 
@@ -90,8 +73,6 @@ level++;
 }
 
 
-document.getElementById("message").innerHTML=text;
-
 update();
 save();
 
@@ -99,19 +80,61 @@ save();
 
 
 
-// PULIZIA CON MOVIMENTO
+function selectTool(t){
 
-let face=document.getElementById("face");
+tool=t;
+
+document.getElementById("mission").innerHTML=
+
+t=="clean"
+?
+"🫧 Muovi il detergente sul viso"
+:
+"💄 Muovi il pennello per truccare";
+
+}
 
 
-face.addEventListener(
+
+let cleaner=document.getElementById("cleaner");
+let brush=document.getElementById("brush");
+
+
+document.addEventListener(
 "pointermove",
-function(e){
+(e)=>{
 
 
 if(e.buttons){
 
-cleanSpot(e);
+if(tool=="clean"){
+
+cleaner.style.display="block";
+
+cleaner.style.left=e.pageX-20+"px";
+cleaner.style.top=e.pageY-20+"px";
+
+
+checkSpots(e);
+
+
+}
+
+
+else{
+
+
+brush.style.display="block";
+
+brush.style.left=e.pageX-20+"px";
+brush.style.top=e.pageY-20+"px";
+
+
+document.body.style.cursor="none";
+
+}
+
+
 
 }
 
@@ -119,12 +142,11 @@ cleanSpot(e);
 
 
 
-function cleanSpot(e){
-
-let spots=document.querySelectorAll(".spot");
+function checkSpots(e){
 
 
-spots.forEach(s=>{
+document.querySelectorAll(".spot")
+.forEach(s=>{
 
 
 let r=s.getBoundingClientRect();
@@ -139,73 +161,99 @@ e.clientY<r.bottom
 
 ){
 
-s.style.display="none";
+s.remove();
 
-cleaned++;
+document.getElementById("message").innerHTML=
+"✨ Pelle pulita!";
 
-reward("✨ Imperfezione rimossa!");
+addCoins();
 
 }
-
 
 
 });
 
 
-if(cleaned>=3){
-
-document.getElementById("mission").innerHTML=
-"Perfetto! Ora scegli il look 👗";
-
-}
-
 }
 
 
 
 
-// ARMADIO
 
+function openShop(){
 
-function openCloset(){
-
-document.getElementById("closet")
+document
+.getElementById("shop")
 .classList.toggle("hidden");
 
 }
 
 
 
-function buyDress(id){
 
+function changeHair(color){
 
-let d=clothes[id];
+let hair=document.getElementById("hair");
 
+hair.className="hair "+color;
 
-if(d.buy){
-
-document.getElementById("message")
-.innerHTML=
-"Hai scelto "+d.name+" 👗";
+save();
 
 }
 
-else if(coins>=d.price){
 
-coins-=d.price;
 
-d.buy=true;
+function changeDress(color){
 
-reward(
-"Hai comprato "+d.name+" 🎉"
-);
+let dress=document.getElementById("dress");
+
+if(color=="pink"){
+
+dress.className="dress pinkdress";
+
+}
+
+
+}
+
+
+
+function buyDress(type){
+
+
+let price=
+type=="princess"
+?
+200
+:
+500;
+
+
+if(bought[type]){
+
+wear(type);
+
+return;
+
+}
+
+
+
+if(coins>=price){
+
+coins-=price;
+
+bought[type]=true;
+
+wear(type);
+
+addCoins();
 
 }
 
 else{
 
-document.getElementById("message")
-.innerHTML=
+document.getElementById("message").innerHTML=
 "Servono più monete 🪙";
 
 }
@@ -214,6 +262,32 @@ document.getElementById("message")
 save();
 
 }
+
+
+
+function wear(type){
+
+let dress=document.getElementById("dress");
+
+
+if(type=="princess"){
+
+dress.className=
+"dress bluedress";
+
+}
+
+
+if(type=="diamond"){
+
+dress.className=
+"dress golddress";
+
+}
+
+
+}
+
 
 
 
