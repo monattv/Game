@@ -1,190 +1,572 @@
-// =========================
-// CASA VACANZE TERRASINI
-// script.js
-// =========================
+/* =====================================
+   CASA VACANZE TERRASINI
+   SCRIPT PRINCIPALE
+===================================== */
 
-// NAVBAR SCROLL
 
-const header = document.querySelector("header");
+/* =========================
+   CONFIGURAZIONE DATI
+========================= */
 
-window.addEventListener("scroll", () => {
 
-    if (window.scrollY > 60) {
+document.addEventListener("DOMContentLoaded", () => {
 
-        header.style.background = "rgba(255,255,255,.95)";
-        header.style.boxShadow = "0 10px 30px rgba(0,0,0,.10)";
 
-    } else {
+    // Controllo presenza config
 
-        header.style.background = "rgba(255,255,255,.75)";
-        header.style.boxShadow = "none";
+    if(typeof CASA !== "undefined"){
+
+
+        const messaggio =
+        "Salve, vorrei avere informazioni sulla Casa Vacanze Terrasini";
+
+
+        const whatsappLink =
+        `https://wa.me/${CASA.whatsapp}?text=${encodeURIComponent(messaggio)}`;
+
+
+
+        // WHATSAPP
+
+        const whatsappButtons = [
+
+            "heroWhatsapp",
+            "whatsappButton",
+            "floatingWhatsapp",
+            "bookingWhatsapp"
+
+        ];
+
+
+
+        whatsappButtons.forEach(id=>{
+
+
+            const button=document.getElementById(id);
+
+
+            if(button){
+
+                button.href=whatsappLink;
+
+                button.target="_blank";
+
+            }
+
+
+        });
+
+
+
+
+
+        // TELEFONO
+
+
+        const phoneButtons=[
+
+            "heroPhone",
+            "callButton"
+
+        ];
+
+
+
+        phoneButtons.forEach(id=>{
+
+
+            const button=document.getElementById(id);
+
+
+            if(button){
+
+                button.href=`tel:${CASA.telefono}`;
+
+            }
+
+
+        });
+
+
+
+
+
+
+        // BOOKING
+
+
+        const booking=document.getElementById("bookingLink");
+
+
+        if(booking){
+
+            booking.href=CASA.booking;
+
+        }
+
+
+
+
+
+        // MAPS
+
+
+        const maps=document.getElementById("mapsButton");
+
+
+        if(maps){
+
+            maps.href=CASA.maps;
+
+        }
+
+
+
+
+
+
+
+        // FOOTER
+
+
+        const footer=document.getElementById("footerName");
+
+
+        if(footer){
+
+            footer.innerHTML=CASA.nome;
+
+        }
+
+
+
+
+
+
+
+        // MAPPA GOOGLE
+
+
+        const map=document.getElementById("mapFrame");
+
+
+        if(map){
+
+            map.src =
+            `https://maps.google.com/maps?q=${encodeURIComponent(CASA.indirizzo)}&output=embed`;
+
+        }
+
+
 
     }
 
 });
 
 
-// HERO SLIDESHOW
 
-const hero = document.querySelector(".hero");
 
-const backgrounds = [
 
-    "images/hero.jpg",
-    "images/gallery1.jpg",
-    "images/gallery2.jpg",
-    "images/gallery3.jpg",
-    "images/gallery4.jpg"
 
-];
 
-let current = 0;
+/* =========================
+   NAVBAR SCROLL
+========================= */
 
-setInterval(() => {
 
-    current++;
+const header=document.querySelector("header");
 
-    if(current >= backgrounds.length){
 
-        current = 0;
+window.addEventListener("scroll",()=>{
+
+
+    if(window.scrollY>50){
+
+
+        header.classList.add("scrolled");
+
+
+    }else{
+
+
+        header.classList.remove("scrolled");
+
 
     }
 
-    hero.style.backgroundImage = `url(${backgrounds[current]})`;
+
+});
+
+
+
+
+
+
+
+
+/* =========================
+   MENU MOBILE
+========================= */
+
+
+const toggle=document.querySelector(".menu-toggle");
+
+const menu=document.querySelector(".nav-links");
+
+
+
+if(toggle){
+
+
+toggle.addEventListener("click",()=>{
+
+
+    menu.classList.toggle("active");
+
+
+});
+
+
+}
+
+
+
+
+
+
+document.querySelectorAll(".nav-links a")
+.forEach(link=>{
+
+
+link.addEventListener("click",()=>{
+
+
+menu.classList.remove("active");
+
+
+});
+
+
+});
+
+
+
+
+
+
+
+
+
+/* =========================
+   HERO SLIDESHOW
+========================= */
+
+
+const hero=document.querySelector(".hero");
+
+
+const slides=[
+
+"images/hero.jpg",
+
+"images/gallery1.jpg",
+
+"images/gallery2.jpg",
+
+"images/gallery3.jpg",
+
+"images/gallery4.jpg"
+
+];
+
+
+let slideIndex=0;
+
+
+
+if(hero){
+
+
+setInterval(()=>{
+
+
+slideIndex++;
+
+
+if(slideIndex>=slides.length){
+
+slideIndex=0;
+
+}
+
+
+
+hero.style.backgroundImage=
+
+`linear-gradient(
+rgba(0,0,0,.45),
+rgba(0,0,0,.45)
+),
+url('${slides[slideIndex]}')`;
+
+
 
 },5000);
 
 
-// ANIMAZIONE SCROLL
 
-const observer = new IntersectionObserver(entries=>{
+}
 
-    entries.forEach(entry=>{
 
-        if(entry.isIntersecting){
 
-            entry.target.classList.add("show");
 
-        }
 
-    });
+
+
+
+
+/* =========================
+   ANIMAZIONI SCROLL
+========================= */
+
+
+const observer=new IntersectionObserver((entries)=>{
+
+
+entries.forEach(entry=>{
+
+
+if(entry.isIntersecting){
+
+
+entry.target.classList.add("show");
+
+
+}
+
+
+});
+
 
 },{
-    threshold:.2
-});
 
-document.querySelectorAll("section").forEach(section=>{
 
-    section.classList.add("hidden");
+threshold:.15
 
-    observer.observe(section);
 
 });
 
 
-// LIGHTBOX
 
-const images = document.querySelectorAll(".gallery-grid img");
 
-const lightbox = document.createElement("div");
+document.querySelectorAll("section")
+.forEach(section=>{
 
-lightbox.className = "lightbox";
+
+section.classList.add("hidden");
+
+
+observer.observe(section);
+
+
+});
+
+
+
+
+
+
+
+
+
+/* =========================
+   LIGHTBOX FOTO
+========================= */
+
+
+const galleryImages=
+document.querySelectorAll(".gallery-grid img");
+
+
+
+const lightbox=
+document.createElement("div");
+
+
+lightbox.className="lightbox";
+
 
 document.body.appendChild(lightbox);
 
-images.forEach(image=>{
 
-    image.addEventListener("click",()=>{
 
-        lightbox.classList.add("active");
 
-        const img = document.createElement("img");
 
-        img.src = image.src;
+galleryImages.forEach(image=>{
 
-        while(lightbox.firstChild){
 
-            lightbox.removeChild(lightbox.firstChild);
+image.addEventListener("click",()=>{
 
-        }
 
-        lightbox.appendChild(img);
+lightbox.innerHTML="";
 
-    });
+
+const bigImage=document.createElement("img");
+
+
+bigImage.src=image.src;
+
+
+lightbox.appendChild(bigImage);
+
+
+lightbox.classList.add("active");
+
 
 });
+
+
+});
+
+
+
+
 
 lightbox.addEventListener("click",()=>{
 
-    lightbox.classList.remove("active");
+
+lightbox.classList.remove("active");
+
 
 });
+
+
+
+
+
 
 document.addEventListener("keydown",(e)=>{
 
-    if(e.key==="Escape"){
 
-        lightbox.classList.remove("active");
+if(e.key==="Escape"){
 
-    }
+
+lightbox.classList.remove("active");
+
+
+}
+
 
 });
 
 
-// BOTTONE TORNA SU
 
-const topButton = document.createElement("button");
 
-topButton.innerHTML = "⬆";
 
-topButton.className = "top-button";
+
+
+
+
+/* =========================
+   BUTTON TORNA SU
+========================= */
+
+
+const topButton=document.createElement("button");
+
+
+topButton.innerHTML="↑";
+
+
+topButton.className="top-button";
+
 
 document.body.appendChild(topButton);
 
+
+
+
+
 window.addEventListener("scroll",()=>{
 
-    if(window.scrollY>400){
 
-        topButton.classList.add("visible");
+if(window.scrollY>500){
 
-    }else{
 
-        topButton.classList.remove("visible");
+topButton.classList.add("visible");
 
-    }
+
+}else{
+
+
+topButton.classList.remove("visible");
+
+
+}
+
 
 });
+
+
+
+
 
 topButton.addEventListener("click",()=>{
 
-    window.scrollTo({
 
-        top:0,
+window.scrollTo({
 
-        behavior:"smooth"
+top:0,
 
-    });
+behavior:"smooth"
 
 });
 
 
-// ANNO FOOTER
-
-const footer = document.querySelector("footer");
-
-const year = document.createElement("p");
-
-year.innerHTML = "© " + new Date().getFullYear() + " - Tutti i diritti riservati.";
-
-footer.appendChild(year);
+});
 
 
-// PRECARICAMENTO IMMAGINI
 
-backgrounds.forEach(src=>{
 
-    const img = new Image();
 
-    img.src = src;
+
+
+
+
+/* =========================
+   ANNO AUTOMATICO
+========================= */
+
+
+const footerYear=document.querySelector("footer p:last-child");
+
+
+if(footerYear){
+
+
+footerYear.innerHTML=
+"© "+new Date().getFullYear()+" - Tutti i diritti riservati";
+
+
+}
+
+
+
+
+
+
+/* =========================
+   PRELOAD FOTO
+========================= */
+
+
+slides.forEach(src=>{
+
+
+const img=new Image();
+
+
+img.src=src;
+
 
 });
